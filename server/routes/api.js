@@ -103,7 +103,7 @@ router.get('/articles/:articleId', function (req, res, next) {
 router.get('/categories', function (req, res, next) {
   const callback = (error, data) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.json(data)
     }
@@ -130,7 +130,7 @@ router.get('/categories/:categoryId', function (req, res, next) {
 router.get('/weegie', (req, res, next) => {
   const callback = (error, question) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       let shuffle = (array) => {
         let temporaryValue

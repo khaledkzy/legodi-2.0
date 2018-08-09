@@ -8,7 +8,7 @@ const imagesDir = path.dirname(require.main.filename) + '/../public/images'
 router.get('/', (req, res, next) => {
   const callback = (error, articles) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.render('articles-list', {
         articles: articles,
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
 router.get('/add', (req, res, next) => {
   const callback = (error, categories) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.render('admin-add-article', {
         categories,
@@ -60,11 +60,11 @@ router.get('/edit/:articleId', ensureAuthenticated, (req, res, next) => {
   const { articleId } = req.params
   const categoriesCallback = (error, categories) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       let articleCallback = (error, article) => {
         if (error) {
-          next(error) // Pass errors to Express.
+          next(error)
         } else {
           let CategorySelected = ''
           let categoriesList = []
@@ -94,7 +94,7 @@ router.post('/delete/:articleId', (req, res, next) => {
   const { articleId } = req.params
   const callBack = (error, data) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       if (data.title === req.body.validationTitle) {
         let deleteCallBack = () => {

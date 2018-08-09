@@ -15,7 +15,7 @@ var ensureAuthenticated = (req, res, next) => {
 router.get('/', ensureAuthenticated, (req, res, next) => {
   const callback = (error, articles) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.render('articles-list', {
         articles: articles,

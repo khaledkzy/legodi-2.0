@@ -7,7 +7,7 @@ const categoryClient = require('../../../dbClients/categoriesDB')
 router.get('/', (req, res, next) => {
   const callback = (error, category) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.render('admin-list-categories', {
         category,
@@ -46,7 +46,7 @@ router.get('/edit/:categoryId', (req, res, next) => {
   const { categoryId } = req.params
   const callback = (error, category) => {
     if (error) {
-      next(error) // Pass errors to Express.
+      next(error)
     } else {
       res.render('admin-edit-category', {
         category: category,
@@ -64,7 +64,7 @@ router.post('/delete/:categoryId', (req, res, next) => {
   let callBack = (error, data) => {
     if (data.title === req.body.validationTitle) {
       if (error) {
-        next(error) // Pass errors to Express.
+        next(error)
       } else {
         const deleteCallBack = () => {
           res.redirect('/admin/categories')
