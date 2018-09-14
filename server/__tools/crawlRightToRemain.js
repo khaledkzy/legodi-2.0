@@ -2,7 +2,6 @@ const request = require('request')
 const cheerio = require('cheerio')
 var fs = require('fs')
 
-let fullHtml
 request('https://www.righttoremain.org.uk/toolkit/index.html', (error, response, html) => {
   if (!error && response.statusCode == 200) {
     const $ = cheerio.load(html, {
@@ -16,7 +15,6 @@ request('https://www.righttoremain.org.uk/toolkit/index.html', (error, response,
           const $ = cheerio.load(page, {
             normalizeWhitespace: true
           })
-          fullHtml = page
           const postHeading = $('.callout').text()
           let scrapedData = (title, category = 'asylum', fullContent) => {
             let shortContent = fullContent.substring(0, 50)
