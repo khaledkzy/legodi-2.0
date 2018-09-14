@@ -1,5 +1,7 @@
 const request = require('request')
 const cheerio = require('cheerio')
+var fs = require('fs')
+
 let fullHtml
 request('https://www.righttoremain.org.uk/toolkit/index.html', (error, response, html) => {
   if (!error && response.statusCode == 200) {
@@ -20,9 +22,12 @@ request('https://www.righttoremain.org.uk/toolkit/index.html', (error, response,
             let shortContent = fullContent.substring(0, 50)
             return { title, category, shortContent, fullContent }
           }
-          console.log(scrapedData(item, undefined, postHeading))
-          console.log(fullHtml)
-          return scrapedData(item, undefined, postHeading)
+          var data = scrapedData(item, undefined, postHeading)
+          let parsedJson = JSON.stringify(data)
+          fs.appendFile(__dirname + '/crawlData.js', parsedJson, (err) => {
+            if (err) throw err
+            console.log('Article Saved !! >>> ', item)
+          })
         }
       })
     })
