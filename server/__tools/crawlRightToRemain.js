@@ -1,8 +1,8 @@
 const request = require('request-promise')
 const cheerio = require('cheerio')
 const path = require('path')
-var dir = path.join(__dirname, '../seeds/data')
-var fs = require('fs')
+const dir = path.join(__dirname, '../seeds/data')
+const fs = require('fs')
 
 const homePage = 'https://www.righttoremain.org.uk/toolkit/index.html'
 
@@ -28,7 +28,7 @@ const scrapContent = (htmlPage) => {
 
 function wrtieToFile (json) {
   const contentsJSON = JSON.stringify(json, null, 4)
-  fs.writeFile(dir + '/rightToremain.json', contentsJSON, (err) => {
+  fs.writeFile(dir + '/rightToRemain.json', contentsJSON, (err) => {
     if (err) throw err
     console.log('SAVED')
   })
