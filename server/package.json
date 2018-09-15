@@ -13,7 +13,8 @@
     "cypress": "open cypress",
     "rollback": "knex migrate:rollback",
     "recreate-db": "npm run rollback && npm run migrate",
-    "ci-recreate-db": "npm run rollback && npm run migrate"
+    "ci-recreate-db": "npm run rollback && npm run migrate",
+    "scrape-data": "node ./__tools/crawlRightToRemain"
   },
   "dependencies": {
     "bcrypt": "^3.0.0",
@@ -38,7 +39,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.4.3",
-    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.5",
     "standard": "^11.0.1"
   },

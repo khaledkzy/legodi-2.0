@@ -1,53 +1,43 @@
-const request = require('request')
+const request = require('request-promise')
 const cheerio = require('cheerio')
 const path = require('path')
 var dir = path.join(__dirname, '../seeds/data')
 var fs = require('fs')
-let item = []
-let link = []
-let jsonData = []
-let postHeading
-let scrapedData = (title, category_id = 1, full_content, status = 'approved') => {
-  let short_content = full_content.substring(0, 50)
-  return { title, category_id, short_content, full_content, status }
-}
 
-var promise1 = new Promise(function (resolve, reject) {
-  request('https://www.righttoremain.org.uk/toolkit/index.html', (error, response, html) => {
-    if (!error && response.statusCode == 200) {
-      resolve(html)
-    }
-  })
-})
+const homePage = 'https://www.righttoremain.org.uk/toolkit/index.html'
 
-promise1.then(function (data) {
+const scrapLinks = (data) => {
   const $ = cheerio.load(data, {
     normalizeWhitespace: true
   })
-  let aTag = $('.accordion-content').find('div.row').find('.medium-3.columns').find('a')
-  aTag.each((i, e) => {
-    item.push($(e).text().trim())
-    link.push($(e).attr('href'))
-  })
-  var links = link.map(link => `https://www.righttoremain.org.uk/toolkit/${link}`)
+  return $('.accordion-content').find('div.row').find('.medium-3.columns').find('a')
+    .map(function (i, el) {
+      return `https://www.righttoremain.org.uk/toolkit/${$(this).attr('href')}`
+    }).toArray()
+}
+const getLinkPromises = (links) => {
+  return links.map((link) => { return request(link) })
+}
+const scrapContent = (htmlPage) => {
+  const $ = cheerio.load(htmlPage, { normalizeWhitespace: true })
+  const fullContent = $('.callout').text()
+  const shortContent = fullContent.substring(0, 50)
+  const title = $('title').text().replace('Right to Remain Toolkit:', '')
+  return { title, short_content: shortContent, full_content: fullContent, category_id: 1 }
+}
 
-  links.map((x, i) => request(`${x}`, (error, response, page) => {
-    var promise2 = new Promise(function (resolve, reject) {
-      if (!error && response.statusCode == 200) {
-        var $ = cheerio.load(page, {
-          normalizeWhitespace: true
-        })
-        postHeading = $('.callout').text()
-        var returnedData = scrapedData(item[i], undefined, postHeading)
-        jsonData.push(returnedData)
-        resolve(jsonData)
-      }
-    })
-    promise2.then(function (json) {
-      let stringFiy = JSON.stringify(json, null, 4)
-      fs.writeFile(dir + '/rightToremain.json', stringFiy, (err) => {
-        if (err) throw err
-      })
-    })
-  }))
-})
+function wrtieToFile (json) {
+  const contentsJSON = JSON.stringify(json, null, 4)
+  fs.writeFile(dir + '/rightToremain.json', contentsJSON, (err) => {
+    if (err) throw err
+    console.log('SAVED')
+  })
+}
+const start = async () => {
+  const homepage = await request(homePage)
+  const links = scrapLinks(homepage)
+  const allPages = await Promise.all(getLinkPromises(links))
+  const content = allPages.map(scrapContent)
+  wrtieToFile(content)
+}
+start()

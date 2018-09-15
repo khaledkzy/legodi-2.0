@@ -131,3 +131,6 @@ We use `knex` for migrations, but we created alias helpers on `package.json` to 
 ## To Open Cypress
 
 1. Go to server and run `./node_modules/.bin/cypress open` or `npx cypress open` in terminal and it will open a window.
+
+## To Run the scraper tool
+1. To start the scraper got to server and `npm run scrape-data`
