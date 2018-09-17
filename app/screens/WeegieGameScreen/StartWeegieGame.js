@@ -47,7 +47,7 @@ class StartWeegieGame extends React.Component {
         <Button
           style={{ backgroundColor: secondaryColor }}
           textStyle={{ color: primaryColor, fontSize: 20, fontWeight: 'bold' }}
-          onPress={() => this.props.navigation.navigate('Game')}
+          onPress={() => this.props.navigation.navigate('StartGame')}
         >
           Start
         </Button>
