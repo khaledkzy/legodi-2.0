@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import { Ionicons } from '@expo/vector-icons'
 
 class ArticlesListScreen extends React.Component {
-  async componentDidMount() {
+  async componentDidMount () {
     const categoryId = this.props.navigation.getParam('id')
     this.props.listArticles(categoryId)
     const { cities, cityId } = this.props
@@ -17,7 +17,7 @@ class ArticlesListScreen extends React.Component {
     this.props.navigation.setParams({ title, primaryColor, secondaryColor })
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const { cityId } = nextProps
     if (cityId !== this.props.cityId) {
       const { city_name: title, primary_color: primaryColor, secondary_color: secondaryColor } = this.props.cities.filter(city => city.city_id === cityId)[0]
@@ -25,7 +25,7 @@ class ArticlesListScreen extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate (nextProps) {
     return this.props.cityId !== nextProps.cityId || this.props.articles !== nextProps.articles
   }
 
@@ -104,7 +104,7 @@ class ArticlesListScreen extends React.Component {
     )
   };
 
-  render() {
+  render () {
     const { cities, cityId } = this.props
     const { primary_color: primaryColor } = cities.filter(city => city.city_id === cityId)[0]
     return (
