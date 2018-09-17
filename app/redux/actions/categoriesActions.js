@@ -22,12 +22,12 @@ export const fetchCategories = (languageId, cityId) => {
   }
 }
 
-export const fetchArticles = (categoryId, language) => {
+export const fetchArticles = (categoryId) => {
   return async dispatch => {
     // dispatch({type: Types.FETCH_ARTICLES})
 
     try {
-      const { data: articles } = await api.getArticles(categoryId, language)
+      const { data: articles } = await api.getArticles(categoryId)
 
       dispatch({
         type: Types.FETCH_ARTICLES_SUCCESS,
