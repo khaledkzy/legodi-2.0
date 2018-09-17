@@ -85,7 +85,6 @@ class AddArticle extends React.Component {
         { cancelable: false }
       )
     }
-    addArticle(data)
   }
 
   pickImage = async () => {
