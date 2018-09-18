@@ -26,7 +26,7 @@ class ArticlesListScreen extends React.Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    return this.props.cityId !== nextProps.cityId
+    return this.props.cityId !== nextProps.cityId || this.props.articles !== nextProps.articles
   }
 
   static navigationOptions = ({ navigation }) => {

@@ -76,7 +76,6 @@ const RootNavigator = createBottomTabNavigator(
 const AppWithNavigationState = reduxifyNavigator(RootNavigator, 'root')
 
 const mapStateToProps = state => {
-  console.log(state.nav)
   return {
     state: state.nav
   }
