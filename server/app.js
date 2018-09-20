@@ -25,10 +25,18 @@ const login = require('./routes/admin/authentication/login')
 const knex = require('./dbClients/connection')
 
 const fileUpload = require('express-fileupload')
+const hbs = require('hbs')
 
 const app = express()
 app.use(cors())
 app.use(fileUpload())
+
+hbs.registerHelper('select', function (selected, options) {
+  return options.fn(this).replace(
+    new RegExp(' value=\"' + selected + '\"'),
+    '$& selected="selected"')
+})
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

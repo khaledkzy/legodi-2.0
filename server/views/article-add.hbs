@@ -14,17 +14,17 @@
         <label class="text-primary">
           Order:
         </label>
-        <input type="number" value={{data.sort_order}} id="articleOrder" class="form-control form-control-success mb-4" name="order">
+        <input type="number" value="{{data.sort_order}}" id="articleOrder" class="form-control form-control-success mb-4" name="order">
         <span id="articleOrderError" class="text-danger"></span>
       </div>
       <div class="form-group has-success">
         <select id="status" class="form-control" name="status">
-          <option value="" class="text-primary">Select Status:</option>
-          <option selected value={{data.status}}>{{data.status}}</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-          <option value="hidden">Hidden</option>
+           {{#select data.status}}
+          <option value="pending">pending</option>
+          <option value="approved">approved</option>
+          <option value="rejected">rejected</option>
+          <option value="hidden">hidden</option>
+             {{/select}}
         </select>
         <span id="statusError" class="text-danger"></span>
       </div>
