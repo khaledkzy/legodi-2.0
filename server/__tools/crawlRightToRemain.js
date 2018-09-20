@@ -23,7 +23,7 @@ const scrapContent = (htmlPage) => {
   const fullContent = $('.callout').text()
   const shortContent = fullContent.substring(0, 50)
   const title = $('title').text().replace('Right to Remain Toolkit:', '')
-  return { title, short_content: shortContent, full_content: fullContent, category_id: 1, status: 'approved' }
+  return { title, short_content: shortContent, full_content: fullContent, category_id: 1, status: 'approved', sort_order: 1 }
 }
 
 function wrtieToFile (json) {
