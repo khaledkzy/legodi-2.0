@@ -27,11 +27,12 @@ class WeegieGame extends React.Component {
   };
 
   state = {
-    checked: 'a',
+    checked: '',
     question: [],
     open: true,
     dataIndex: 0,
-    isAnswerScreen: false
+    isAnswerScreen: false,
+    asnwer: ''
   };
 
   componentDidMount () {
@@ -43,21 +44,19 @@ class WeegieGame extends React.Component {
 
   handleNextQuestion = e => {
     const data = this.props.WeegieGameQuestions
-    const { dataIndex, checked } = this.state
-    const answer = checked
+    const { dataIndex, checked, answer } = this.state
     const title = data[dataIndex].question_id
-
     this.state.question.push({ title, answer })
-
     e.preventDefault()
     if (dataIndex <= 12) {
       this.setState({
-        dataIndex: dataIndex + 1
+        dataIndex: dataIndex + 1,
+        checked: ''
       })
     } else {
       const { question } = this.state
       this.props.onGetWeegieAnswers(question).then(() => {
-        this.setState({ open: false, isAnswerScreen: true })
+        this.setState({ open: false, isAnswerScreen: true  })
       })
     }
   };
@@ -68,7 +67,7 @@ class WeegieGame extends React.Component {
 
   resetGame = () =>
     this.setState({
-      checked: 'a',
+      checked: '',
       question: [],
       open: true,
       dataIndex: 0,
@@ -76,7 +75,7 @@ class WeegieGame extends React.Component {
     });
 
   handleCheckBox = value => {
-    this.setState({ checked: value })
+    this.setState({ checked: value, answer:value })
   };
 
   showGame = data => {
@@ -94,7 +93,7 @@ class WeegieGame extends React.Component {
           <View>
             <CheckBox
               title={question.a}
-              checked={this.state.checked === 'a'}
+              checked={this.state.checked ==='a'}
               onPress={() => {
                 this.handleCheckBox('a')
               }}
