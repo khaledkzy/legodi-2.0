@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { Text, View, ScrollView , Alert} from 'react-native'
 import PropTypes from 'prop-types'
 import { CheckBox } from 'react-native-elements'
 import { connect } from 'react-redux'
@@ -47,6 +47,14 @@ class WeegieGame extends React.Component {
     const { dataIndex, answer } = this.state
     const title = data[dataIndex].question_id
     this.state.question.push({ title, answer })
+    if(checked === ''){
+      Alert.alert(
+        'Opss!',
+        'Please Choose an Answer.',
+        [{ text: 'OK'}],
+        { cancelable: false }
+      )
+    }else{
     e.preventDefault()
     if (dataIndex <= 12) {
       this.setState({
@@ -59,6 +67,7 @@ class WeegieGame extends React.Component {
         this.setState({ open: false, isAnswerScreen: true })
       })
     }
+  }
   };
 
   handleOpen = () => {
