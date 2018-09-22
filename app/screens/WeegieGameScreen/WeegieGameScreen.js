@@ -44,7 +44,7 @@ class WeegieGame extends React.Component {
 
   handleNextQuestion = e => {
     const data = this.props.WeegieGameQuestions
-    const { dataIndex, checked, answer } = this.state
+    const { dataIndex, answer } = this.state
     const title = data[dataIndex].question_id
     this.state.question.push({ title, answer })
     e.preventDefault()
@@ -56,7 +56,7 @@ class WeegieGame extends React.Component {
     } else {
       const { question } = this.state
       this.props.onGetWeegieAnswers(question).then(() => {
-        this.setState({ open: false, isAnswerScreen: true  })
+        this.setState({ open: false, isAnswerScreen: true })
       })
     }
   };
@@ -75,7 +75,7 @@ class WeegieGame extends React.Component {
     });
 
   handleCheckBox = value => {
-    this.setState({ checked: value, answer:value })
+    this.setState({ checked: value, answer: value })
   };
 
   showGame = data => {
@@ -93,7 +93,7 @@ class WeegieGame extends React.Component {
           <View>
             <CheckBox
               title={question.a}
-              checked={this.state.checked ==='a'}
+              checked={this.state.checked === 'a'}
               onPress={() => {
                 this.handleCheckBox('a')
               }}
