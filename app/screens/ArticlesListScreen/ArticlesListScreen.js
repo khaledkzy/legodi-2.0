@@ -31,11 +31,12 @@ class ArticlesListScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => {
     const { params } = navigation.state
-    const primaryColor = params ? `${params.primaryColor}` : '#e6bb44'
+    const primaryColor = params && params === undefined ? `${params.primaryColor}` : '#e6bb44'
+
     return {
-      title: params ? `${params.title} Welcome Pack` : 'Glasgow Welcome Pack',
+      title: params && params === undefined ? `${params.title} Welcome Pack` : 'Glasgow Welcome Pack',
       headerStyle: {
-        backgroundColor: params ? `${params.secondaryColor}` : '#0f352e',
+        backgroundColor: params && params === undefined ? `${params.secondaryColor}` : '#0f352e',
         paddingTop: Constants.statusBarHeight
       },
       headerRight: (
