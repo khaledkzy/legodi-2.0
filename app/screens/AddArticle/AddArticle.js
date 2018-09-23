@@ -97,6 +97,12 @@ class AddArticle extends React.Component {
         base64: true
       })
       if (!result.cancelled) {
+        Alert.alert(
+          'Great!',
+          'You have selected a picture successfuly.',
+          [{ text: 'OK' }],
+          { cancelable: false }
+        )
         this.setState({ articleImage: result.base64, imageUrl: result.uri })
       }
     }
