@@ -26,6 +26,7 @@ const knex = require('./dbClients/connection')
 
 const fileUpload = require('express-fileupload')
 const hbs = require('hbs')
+var FileReader = require('filereader')
 
 const app = express()
 app.use(cors())
@@ -37,6 +38,15 @@ hbs.registerHelper('select', function (selected, options) {
     '$& selected="selected"')
 })
 
+hbs.registerHelper('previewFile',
+  function (file) {
+    var reader = new FileReader(file)
+    if (file) {
+      var imageResult = reader.readAsDataURL(file)
+    }
+    return imageResult
+  }
+)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
